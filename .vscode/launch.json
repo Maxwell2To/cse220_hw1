@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Run Game",
+            "program": "${workspaceRoot}/build/hw1_game",
+            "args": ["10", "10", "x-o----xxo-----x--o-x---------xx--x--x-------xx----x--x------x--x---xx--x-----x---o-x---xxo-xxx-xx-x"],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build",
+        },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Run Solver Main",
+            "program": "${workspaceRoot}/build/hw1_solver",
+            "args": ["5", "6", "xxx-o---x--x-oo--x-oo-x---x--x"],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build",
+        },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Run Generator Main",
+            "program": "${workspaceRoot}/build/hw1_generator",
+            "args": ["6", "5", "ooxoxxoxxoxxxooxooxooxxoxxxxoo"],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build",
+        },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Run All Tests",
+            "program": "${workspaceRoot}/build/run_all_tests",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build"
+        },
+    ],
+}
