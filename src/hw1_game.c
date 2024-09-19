@@ -13,7 +13,7 @@ void showBoard(int row, int col) {
         printf("\n");
     }
 }
-
+/*
 int checkHorizontal(int cols, int rowInput, int colInput, char piece){
     int sum = 0;
     for (int i = 1; i < 4; i++) {
@@ -102,12 +102,6 @@ int checkRight2LeftDiagonal(int rows, int cols, int rowInput, int colInput, char
     return sum;
 }
 
-/// @brief checker will detect for 4 in a row
-/// @param rows number of rows on current board
-/// @param cols number of cols on current board
-/// @param rowInput row input
-/// @param colInput col input
-/// @return 0 if no 4 in row. Anything else is 4 in a row
 int checker(int rows, int cols, int rowInput, int colInput, char piece){
     int has4inRow = 0;
     if (checkHorizontal(cols, rowInput, colInput, piece) >= 3 
@@ -117,21 +111,19 @@ int checker(int rows, int cols, int rowInput, int colInput, char piece){
         has4inRow = 1;
     return has4inRow;
 }
-
+*/
 int main(int argc, char **argv) {
     assert(argc == 4);
     initialize_board(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));
 	//Write your code here
     int num_rows = (int)strtoul(argv[1], NULL, 10);
     int num_cols = (int)strtoul(argv[2], NULL, 10);
-    
-    //INFO("this is string: %s, this is int: %d", "wtf", 66);
 
-    showBoard(num_rows, num_cols);
+        char piece = '-';
 
-    char piece = '-';
     while(piece != 'q') {    
-        
+        piece = '-';
+        showBoard(num_rows, num_cols);
         while((piece != 'x') && (piece != 'o') && (piece != 'q')) {
             printf("Choose a piece (x or o) or q to quit: ");
             scanf(" %c", &piece);
