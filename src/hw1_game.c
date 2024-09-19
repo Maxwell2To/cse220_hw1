@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
         } 
 
 
-        if (!checkFree(row, col)) {
+        if (checkFree(row, col)) {
             printf("Invalid choice. That space is already occupied.\n");
             continue;
         }
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
             continue;
         }
         else
-            put(piece, row, col);
+            putPiece(piece, row, col);
 
         int filled = 0;
         for (int i = 0; i < num_rows; i++) {

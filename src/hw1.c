@@ -20,11 +20,14 @@ void showBoard(int row, int col) {
     }
 }
 
-bool checkFree(int row, int col){
-    return (board[row][col] == '-');
+int checkFree(int row, int col){
+    if(board[row][col] == '-'){
+        return 1;
+    }
+    return 0;
 }
 
-void put(char piece, int row, int col){
+void putPiece(char piece, int row, int col){
     board[row][col] = piece;
 }
 

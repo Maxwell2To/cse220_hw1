@@ -25,7 +25,9 @@ void initialize_board(const char *initial_state, int num_rows, int num_cols);
 
 void showBoard(int row, int col);
 
-bool checkFree(int row, int col);
+int checkFree(int row, int col);
+
+void putPiece(char piece, int row, int col);
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
 
