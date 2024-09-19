@@ -6,6 +6,7 @@
 #include "hw1.h"
 
 char board[MAX_ROWS][MAX_COLS] = {0};
+char boardString[MAX_ROWS * MAX_COLS] = {0};
 /*
 Hint: Consider adding a global variable to store a string large enough to store a board.
 */
@@ -280,6 +281,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
+    //memset(boardString, sizeof(boardString), 0);
     (void) final_state;
     (void) num_rows;
     (void) num_cols;

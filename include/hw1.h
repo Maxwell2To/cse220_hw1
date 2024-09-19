@@ -22,8 +22,11 @@
 #define MAX_COLS 20
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
+
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
+
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
+
 int checker(int rows, int cols, int rowInput, int colInput, char piece);
 
 extern char board[MAX_ROWS][MAX_COLS];
