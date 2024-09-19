@@ -7,9 +7,6 @@
 
 char board[MAX_ROWS][MAX_COLS] = {0};
 char boardString[MAX_ROWS * MAX_COLS] = {0};
-/*
-Hint: Consider adding a global variable to store a string large enough to store a board.
-*/
 
 void showBoard(int row, int col) {
     for (int i = 0; i < row; i++) {
@@ -173,7 +170,7 @@ void deleteNode(struct Node** head_ref, int keyRow, int keyCol)
 	free(temp);
 } 
 //return 
-int findCellNeededToForceAnXOrO(struct Node* node, int *outRow, int *outCol, int num_rows, int num_cols)
+int fillDashes(struct Node* node, int *outRow, int *outCol, int num_rows, int num_cols)
 { 
     (*outRow) = -1; // initialize to not found
     (*outCol) = -1;  
@@ -183,10 +180,7 @@ int findCellNeededToForceAnXOrO(struct Node* node, int *outRow, int *outCol, int
         int tempCol = node->col;
         int has4inRowx = checker(num_rows, num_cols, tempRow, tempCol, 'x');
         int has4inRowo = checker(num_rows, num_cols, tempRow, tempCol, 'o');
-        // #### TODO:
-        // modify this if condition to use your checker thing.
-        // and see if node->row, node->col will result in 4inARow, if true, go in and update board with the opposite 'x' or 'o'
-        // x or o in this cell
+
         if (has4inRowx == 1 && has4inRowo == 1)
             return -3;
                 
@@ -203,15 +197,13 @@ int findCellNeededToForceAnXOrO(struct Node* node, int *outRow, int *outCol, int
             *outCol = tempCol;
             return 1;
         }
-            // #### TODO:
-            // do the actual update
-            // board[node->row][node->col] = 'x' or 'o' // that will NOT give 4InARow
+           
         node = node->next;  
 	}
     return 0;
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void initialize_board(const char *initial_state, int num_rows, int num_cols) {
     int count = 0;
     for (int i = 0; i < num_rows; i++) {
@@ -269,7 +261,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     int outCol = -1;
     int didItChange = 1;
     while(didItChange == 1) {
-        didItChange = findCellNeededToForceAnXOrO(head, &outRow, &outCol, num_rows, num_cols);
+        didItChange = fillDashes(head, &outRow, &outCol, num_rows, num_cols);
         if (didItChange == -3)
             return INITIAL_BOARD_NO_SOLUTION;
         else if (didItChange == 1) {
@@ -303,10 +295,29 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
     //memset(boardString, sizeof(boardString), 0);
-    (void) final_state;
-    (void) num_rows;
-    (void) num_cols;
-    return 0;
+    initialize_board(final_state, num_rows, num_cols);
+
+    int has4inRowO = 0;
+    int has4inRowX = 0;
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            has4inRowO = checker(num_rows, num_cols, i, j, 'o');
+            has4inRowX = checker(num_rows, num_cols, i, j, 'x');
+
+            if (has4inRowO == 1|| has4inRowX == 1){
+                board[i][j] = '-';
+            }
+        }
+    }
+
+    int counter = 0;
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            boardString[counter] = board[i][j];
+            counter++;
+        }
+    }
+    return boardString;
 }
 
 

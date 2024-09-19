@@ -4,8 +4,6 @@
 
 #include "hw1.h"
 
-////////////////move showboard function into here
-
 int main(int argc, char **argv) {
     assert(argc == 4);
     initialize_board(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));

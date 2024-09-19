@@ -35,6 +35,4 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols);
 
 int checker(int rows, int cols, int rowInput, int colInput, char piece);
 
-//extern char board[MAX_ROWS][MAX_COLS];
-
 #endif // HW1_H
