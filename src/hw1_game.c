@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
         } 
 
 
-        if (checkFree(row, col)) {
+        if (checkFree(row, col) == 0) {
             printf("Invalid choice. That space is already occupied.\n");
             continue;
         }
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
         int filled = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
-                if (!checkFree(i, j))
+                if (checkFree(i, j) == 0)
                     filled++;
             }
         }
