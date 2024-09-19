@@ -4,17 +4,7 @@
 
 #include "hw1.h"
 
-char board2[MAX_ROWS][MAX_COLS] = {0};
-
-
-void showBoard(int row, int col) {
-    for (int i = 0; i < row; i++) {
-        for (int j = 0; j < col; j++) {
-            printf("%c ", board2[i][j]);
-        }
-        printf("\n");
-    }
-}
+////////////////move showboard function into here
 
 int main(int argc, char **argv) {
     assert(argc == 4);
@@ -57,7 +47,7 @@ int main(int argc, char **argv) {
         } 
 
 
-        if ((board2[row][col] == 'x') || (board2[row][col] == 'o')) {
+        if (!checkFree(row, col)) {
             printf("Invalid choice. That space is already occupied.\n");
             continue;
         }
@@ -68,12 +58,12 @@ int main(int argc, char **argv) {
             continue;
         }
         else
-            board2[row][col] = piece;
+            put(piece, row, col);
 
         int filled = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
-                if (board2[i][j] == 'x' || board2[i][j] == 'o')
+                if (!checkFree(i, j))
                     filled++;
             }
         }

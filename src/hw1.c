@@ -10,6 +10,24 @@ char boardString[MAX_ROWS * MAX_COLS] = {0};
 /*
 Hint: Consider adding a global variable to store a string large enough to store a board.
 */
+
+void showBoard(int row, int col) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            printf("%c ", board[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+bool checkFree(int row, int col){
+    return (board[row][col] == '-');
+}
+
+void put(char piece, int row, int col){
+    board[row][col] = piece;
+}
+
 int checkHorizontal(int cols, int rowInput, int colInput, char piece){
     int sum = 0;
     for (int i = 1; i < 4; i++) {

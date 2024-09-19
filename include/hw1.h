@@ -23,6 +23,10 @@
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
 
+void showBoard(int row, int col);
+
+bool checkFree(int row, int col);
+
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
