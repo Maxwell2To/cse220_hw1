@@ -133,8 +133,7 @@ struct Node {
 	struct Node* next; 
 }; 
 
-void push(struct Node** head_ref, 
-          int new_row, int new_col) 
+void push(struct Node** head_ref, int new_row, int new_col) 
 { 
 	struct Node* new_node 
 		= (struct Node*)malloc(sizeof(struct Node)); 
@@ -202,6 +201,20 @@ int fillDashes(struct Node* node, int *outRow, int *outCol, int num_rows, int nu
 	}
     return 0;
 }
+
+void deleteAllNodes(struct Node** head) {
+    struct Node* current = *head;
+    struct Node* next_node;
+
+    while (current != NULL) {
+        next_node = current->next;
+        free(current);
+        current = next_node;
+    }
+
+    *head = NULL; // Set head to NULL to indicate an empty list
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols) {
@@ -262,12 +275,16 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     int didItChange = 1;
     while(didItChange == 1) {
         didItChange = fillDashes(head, &outRow, &outCol, num_rows, num_cols);
-        if (didItChange == -3)
+        if (didItChange == -3) {
+            deleteAllNodes(&head);
             return INITIAL_BOARD_NO_SOLUTION;
+        }
         else if (didItChange == 1) {
             deleteNode(&head, outRow, outCol);   /// remove from linked list
         }
     }
+
+    deleteAllNodes(&head);
 
     int local_num_x = 0;
     int local_num_o = 0;
@@ -297,19 +314,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
     //memset(boardString, sizeof(boardString), 0);
     initialize_board(final_state, num_rows, num_cols);
 
-    int has4inRowO = 0;
-    int has4inRowX = 0;
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; j < num_cols; j++) {
-            has4inRowO = checker(num_rows, num_cols, i, j, 'o');
-            has4inRowX = checker(num_rows, num_cols, i, j, 'x');
-
-            if (has4inRowO == 1|| has4inRowX == 1){
-                board[i][j] = '-';
-            }
-        }
-    }
-
     int counter = 0;
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; j < num_cols; j++) {
@@ -317,7 +321,21 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             counter++;
         }
     }
+
+    int num_x, num_o = 0;
+
+    for(int index = 0; index < num_rows*num_cols; index++)
+    {
+        if(boardString[index] != '-')
+        {
+            char temp_store = boardString[index];
+            boardString[index] = '-';
+            int result = solve(boardString, num_rows, num_cols, &num_x, &num_o);
+            if (result == HEURISTICS_FAILED)
+                boardString[index] = temp_store;   //// index of violation on heuristic
+            
+        }
+    }
+
     return boardString;
 }
-
-
